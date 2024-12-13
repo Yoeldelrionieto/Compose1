@@ -11,12 +11,15 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,6 +43,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun TextoCambiante(name: String){
     val backgroundColor = remember { mutableStateOf(Color.White) }
+    val nombre = remember { mutableStateOf(name) }
+    val nombresLista = remember { SnapshotStateList<String>() }
     Box(
         modifier = Modifier.fillMaxSize()
             .background(color = backgroundColor.value),
@@ -71,6 +76,39 @@ fun TextoCambiante(name: String){
                     text = "Cambiar fondo",
                     fontSize = 18.sp,
                     textAlign = TextAlign.Center
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            OutlinedTextField(
+                value = nombre.value,
+                onValueChange = { nombre.value = it },
+                label = { Text("Introducir Nombre") },
+                modifier = Modifier.width(200.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = {
+                if (nombre.value.isNotBlank()) {
+                    nombresLista.add(nombre.value)
+                }
+            }) {
+                Text(
+                    text = "Añadir Nombre",
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Center
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "Lista de Nombres",
+                fontSize = 20.sp,
+                color = Color.Black
+            )
+            nombresLista.forEach {
+                Text(
+                    text = it,
+                    fontSize = 18.sp,
+                    color = Color.DarkGray
                 )
             }
         }
