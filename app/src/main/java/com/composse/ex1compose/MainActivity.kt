@@ -12,7 +12,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.composse.ex1compose.ui.theme.Ex1ComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,8 +34,14 @@ fun TextoCambiante(name: String){
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
+
     ) {
-        Text(text = "Hello $name")
+        Text(
+            text = "Hello $name",
+            color = Color.Red, // Cambiar el color del texto a rojo
+            fontSize = 24.sp,
+        )
+
     }
 }
 @Preview
