@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -38,8 +39,10 @@ class MainActivity : ComponentActivity() {
 }
 @Composable
 fun TextoCambiante(name: String){
+    val backgroundColor = remember { mutableStateOf(Color.White) }
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
+            .background(color = backgroundColor.value),
         contentAlignment = Alignment.Center
 
     ) {
@@ -52,9 +55,20 @@ fun TextoCambiante(name: String){
             Spacer(modifier = Modifier.height(16.dp))
             val buttonText = remember { mutableStateOf("Change Name") }
 
-            Button(onClick = { buttonText.value = "Presiona Aquí" }) {
+            Button(onClick = { buttonText.value = if(buttonText.value == "Change Name") "Presiona Aquí" else "Change Name"
+            }) {
                 Text(
                     text = buttonText.value,
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Center
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = {
+                backgroundColor.value = if (backgroundColor.value == Color.White) Color.Gray else Color.White
+            }) {
+                Text(
+                    text = "Cambiar fondo",
                     fontSize = 18.sp,
                     textAlign = TextAlign.Center
                 )
